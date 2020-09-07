@@ -3,7 +3,7 @@ name: Continuous integration/deployment
 on:
   push:
     branches:
-      - "main"
+      - "master"
   pull_request:
     branches:
       - "**"
@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
 
       - run: npm install
 
@@ -29,66 +29,46 @@ jobs:
 
       - run: npm run test
 
-  release:
-    if: github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Git config
+      - name: git config
+        if: github.ref == 'refs/heads/master'
         run: |
-          git config user.name 'Leo Falco'
-          git config user.email 'leonardo.falco@outlook.com'
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git config --global user.name 'Leo Falco'
+          git config --global user.email 'leonardo.falco@outlook.com'
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}
           git fetch --tags
-
-      - run: npx lerna version
+          git checkout master
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  publish:
-    if: (github.ref == 'refs/heads/main') && false
-    needs: release
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+      - run: npx lerna version --no-push
+        if: github.ref == 'refs/heads/master'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    steps:
-      - name: Set up node 8.x
-        uses: actions/setup-node@v1
+      - name: sentry release
+        if: github.ref == 'refs/heads/master'
+        run: |
+          npm install @sentry/cli -g
+          VERSION=$(git describe --abbrev=0 --tags)
+          sentry-cli releases new -p gql $VERSION --log-level=info
+          sentry-cli releases set-commits --auto $VERSION --log-level=info
+          sentry-cli releases finalize $VERSION --log-level=info
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: leofalco
+
+      - uses: akhileshns/heroku-deploy@v3.4.6
+        if: github.ref == 'refs/heads/master'
         with:
-          node-version: 8.x
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: gql-leo
+          heroku_email: "leonardo.falco@outlook.com"
 
-      - name: Install eyeofsauron dependencies
-        working-directory: ../eyeofsauron
-        run: npm install
+      - name: push tags
+        if: github.ref == 'refs/heads/master'
+        run: |
+          git push --tags
+          git push
 
-      - name: Checkout orodruin/worker
-        uses: actions/checkout@v1
 
-      - name: Set up node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
 
-      - name: Install orodruin/server dependencies
-        working-directory: ./server
-        run: npm install
-
-      - name: Install orodruin/worker dependencies
-        working-directory: ./worker
-        run: npm install
-
-      - name: Linting
-        working-directory: ./worker
-        run: npm run lint
-
-      - name: Unit testing
-        working-directory: ./worker
-        run: npm run test-app
-
-      - name: Integrated testing
-        working-directory: ./worker
-        run: npm run test-integrated
