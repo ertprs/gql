@@ -1,0 +1,99 @@
+name: Continuous integration/deployment
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - run: echo $ENVIRONMENT
+        env:
+          ENVIRONMENT: dev
+
+      - run: npm install
+        env:
+          ENVIRONMENT: dev
+
+      - run: npm run lint
+
+      - run: npm run test
+        env:
+          ENVIRONMENT: dev
+
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Git config
+        run: |
+          git config user.name 'Leo Falco'
+          git config user.email 'leonardo.falco@outlook.com'
+          git remote set-url origin https://x-access-token:${GITHUB_ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git fetch --tags
+
+      - run: npx lerna version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+
+  publish:
+    if: (github.ref == 'refs/heads/main') && false
+    needs: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Set up node 8.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8.x
+
+      - name: Install eyeofsauron dependencies
+        working-directory: ../eyeofsauron
+        run: npm install
+
+      - name: Checkout orodruin/worker
+        uses: actions/checkout@v1
+
+      - name: Set up node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install orodruin/server dependencies
+        working-directory: ./server
+        run: npm install
+
+      - name: Install orodruin/worker dependencies
+        working-directory: ./worker
+        run: npm install
+
+      - name: Linting
+        working-directory: ./worker
+        run: npm run lint
+
+      - name: Unit testing
+        working-directory: ./worker
+        run: npm run test-app
+
+      - name: Integrated testing
+        working-directory: ./worker
+        run: npm run test-integrated
