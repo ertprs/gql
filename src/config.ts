@@ -1,10 +1,13 @@
-const isProduction= process.env.ENVIRONMENT === 'prod'
+const isProduction = process.env.ENVIRONMENT === 'prod'
 
 const config = {
-  isProduction: isProduction ,
-  databaseUrl: process.env.DATABASE_URL,
-  domain: process.env.DOMAIN,
-  port: process.env.PORT || 4000
+  isProduction: isProduction,
+  environment: process.env.ENVIRONMENT || null,
+  databaseUrl: process.env.DATABASE_URL || null,
+  domain: process.env.DOMAIN || null,
+  port: process.env.PORT || 4000,
 }
+
+console.warn('config', JSON.stringify(config, null, 2))
 
 export default config

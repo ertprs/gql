@@ -8,6 +8,9 @@ on:
     branches:
       - "**"
 
+env:
+  ENVIRONMENT: dev
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,19 +23,11 @@ jobs:
         with:
           node-version: 14.x
 
-      - run: echo $ENVIRONMENT
-        env:
-          ENVIRONMENT: dev
-
       - run: npm install
-        env:
-          ENVIRONMENT: dev
 
       - run: npm run lint
 
       - run: npm run test
-        env:
-          ENVIRONMENT: dev
 
   release:
     if: github.ref == 'refs/heads/main'
@@ -47,12 +42,12 @@ jobs:
         run: |
           git config user.name 'Leo Falco'
           git config user.email 'leonardo.falco@outlook.com'
-          git remote set-url origin https://x-access-token:${GITHUB_ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
           git fetch --tags
 
       - run: npx lerna version
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
     if: (github.ref == 'refs/heads/main') && false

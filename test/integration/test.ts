@@ -8,19 +8,19 @@ const { query } = createTestClient(server)
 describe('integration tests', () => {
   describe('atendimentos', () => {
     it('query atendimentos should respond with data', async () => {
-      expect.assertions(2)
+      expect.assertions(1)
 
       const response = await query({
         query: queries.ATENDIMENTOS
       })
 
-      expect(response.data)
-        .toMatchObject({
+      expect(response).toStrictEqual(expect.objectContaining({
+        data: {
           atendimentos: []
-        })
+        },
+        errors: undefined
+      }))
 
-      expect(response.errors)
-        .toBeUndefined()
     })
   })
 })

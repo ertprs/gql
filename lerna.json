@@ -1,6 +1,15 @@
 {
+  "version": "1.0.0",
   "packages": [
     "./"
   ],
-  "version": "1.0.0"
+  "command": {
+    "version": {
+      "conventionalCommits": true,
+      "message": "chore(release): publish %s",
+      "createRelease": "github",
+      "fromGit": true,
+      "yes": true
+    }
+  }
 }

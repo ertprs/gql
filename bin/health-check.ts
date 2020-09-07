@@ -10,7 +10,6 @@ const SUCCESS = green('[SUCCESS]')
 
 async function connect(): Promise<Connection> {
   console.log(INFO,'trying to connect to', config.databaseUrl)
-  console.log("databaseUrl", config.databaseUrl)
   return new Promise((resolve, reject) => {
     try {
       const database = mysql.createConnection(config.databaseUrl)
@@ -53,7 +52,7 @@ async function run(): Promise<void> {
           process.exit(1)
         }
 
-        await sleep(2000)
+        await sleep(5000)
       })
   }
 }
