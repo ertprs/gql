@@ -3,10 +3,10 @@ name: Continuous integration/deployment
 on:
   push:
     branches:
-      - "master"
+      - 'master'
   pull_request:
     branches:
-      - "**"
+      - '**'
 
 env:
   ENVIRONMENT: dev
@@ -40,19 +40,52 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: npx lerna version --no-push
+      - name: Is republishing
+        id: is-republishing
         if: github.ref == 'refs/heads/master'
+        run: |
+          ref=$(git rev-parse --symbolic-full-name HEAD)
+          if [ "$ref" = "HEAD" ]
+          then
+            output=true
+          else
+            output=false
+          fi
+          echo $output
+          echo "::set-output name=output::$output"
+
+      - run: npx lerna version --no-push
+        if: github.ref == 'refs/heads/master' && steps.is-republishing.outputs.output == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: sentry release
+      - name: Get git ref
+        id: get-ref
         if: github.ref == 'refs/heads/master'
         run: |
-          npm install @sentry/cli -g
+          next_tag_commit_count=$(git describe --contains --always HEAD | cut -d'~' -f2 | cut -d'^' -f2)
+          if [ "$next_tag_commit_count" = "1" ] # has an tag on next commit
+          then
+            # next ref is the tag on next commit
+            ref=$(git describe --contains HEAD | cut -d'~' -f1 | cut -d'^' -f1)
+          else
+            # next ref is the current commit short abbreviation
+            ref=$(git describe --always)
+          fi
+          echo $ref
+          echo "::set-output name=ref::$ref"
+
+      - name: checkout ref
+        if: github.ref == 'refs/heads/master'
+        run: git checkout ${{ steps.get-ref.outputs.ref }}
+
+      - name: sentry release
+        if: github.ref == 'refs/heads/master' && steps.is-republishing.outputs.output == 'false'
+        run: |
           VERSION=$(git describe --abbrev=0 --tags)
-          sentry-cli releases new -p gql $VERSION --log-level=info
-          sentry-cli releases set-commits --auto $VERSION --log-level=info
-          sentry-cli releases finalize $VERSION --log-level=info
+          npx sentry-cli releases new -p gql $VERSION --log-level=info
+          npx sentry-cli releases set-commits --auto $VERSION --log-level=info
+          npx sentry-cli releases finalize $VERSION --log-level=info
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: leofalco
@@ -62,13 +95,10 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: gql-leo
-          heroku_email: "leonardo.falco@outlook.com"
+          heroku_email: 'leonardo.falco@outlook.com'
 
       - name: push tags
         if: github.ref == 'refs/heads/master'
         run: |
           git push --tags
           git push
-
-
-
