@@ -54,7 +54,7 @@ jobs:
           echo $output
           echo "::set-output name=output::$output"
 
-      - run: npx lerna version --no-push
+      - run: npx lerna version
         if: github.ref == 'refs/heads/master' && steps.is-republishing.outputs.output == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -96,9 +96,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: gql-leo
           heroku_email: 'leonardo.falco@outlook.com'
-
-      - name: push tags
-        if: github.ref == 'refs/heads/master'
-        run: |
-          git push --tags
-          git push
