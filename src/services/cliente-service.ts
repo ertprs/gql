@@ -12,40 +12,46 @@ export class ClienteService {
     return this.prisma.cliente.findMany()
   }
 
-  async save({ clienteInput, enderecoInput }: { clienteInput: ClienteInput; enderecoInput: EnderecoInput }): Promise<Cliente> {
+  async save({
+    clienteInput,
+    enderecoInput,
+  }: {
+    clienteInput: ClienteInput
+    enderecoInput: EnderecoInput
+  }): Promise<Cliente> {
     const enderecoInserido = await this.prisma.endereco.upsert({
       create: {
-        ...enderecoInput
+        ...enderecoInput,
       },
       update: {
-        ...enderecoInput
+        ...enderecoInput,
       },
       select: {
-        id: true
+        id: true,
       },
       where: {
-        id: enderecoInput.id || ''
-      }
+        id: enderecoInput.id || '',
+      },
     })
 
     const createOrUpdate = {
       ...clienteInput,
       endereco: {
         connect: {
-          id: enderecoInserido.id
-        }
-      }
+          id: enderecoInserido.id,
+        },
+      },
     }
 
     return this.prisma.cliente.upsert({
       create: createOrUpdate,
       update: createOrUpdate,
       include: {
-        endereco: true
+        endereco: true,
       },
       where: {
-        id: clienteInput.id || ''
-      }
+        id: clienteInput.id || '',
+      },
     })
   }
 }

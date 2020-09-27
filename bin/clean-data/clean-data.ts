@@ -1,5 +1,5 @@
-import { DataSource } from '../data-source'
 import config from '../../src/config'
+import { DataSource } from '../data-source'
 
 export async function cleanData(): Promise<void> {
   const dataSource = await DataSource.fromConnectionString(config.databaseUrl)

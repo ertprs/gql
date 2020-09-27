@@ -1,13 +1,11 @@
 import { Connection, createConnection } from 'promise-mysql'
 
-
 function parse(url: string): Environment {
-
   const pattern = /^(?:([^:\\/?#\s]+):\/{2})?(?:([^@\\/?#\s]+)@)?([^\\/?#\s]+)?(?:\/([^?#\s]*))?(?:[?]([^#\s]+))?\S*$/
   const matches = url.match(pattern)
   const params: Environment = {}
   if (matches[5] !== undefined) {
-    matches[5].split('&').map(function (x) {
+    matches[5].split('&').map(function(x) {
       const a = x.split('=')
       params[a[0]] = a[1]
     })
@@ -23,7 +21,6 @@ function parse(url: string): Environment {
     segments: matches[4] !== undefined ? matches[4] : undefined,
   }
 }
-
 
 export class DataSource {
   private con: Connection
@@ -67,7 +64,10 @@ export class DataSource {
   }
 
   public async tableNames(databaseName: string): Promise<string[]> {
-    const result: [] = await this.con.query('SELECT table_name as tableName FROM information_schema.tables WHERE table_schema = ?', [databaseName])
+    const result = await this.con.query(
+      'SELECT table_name as tableName FROM information_schema.tables WHERE table_schema = ?',
+      [databaseName],
+    )
     return result.map((data: { tableName: string }) => data.tableName)
   }
 
@@ -95,9 +95,6 @@ export class DataSource {
   }
 }
 
-
 interface Environment {
-   [key: string]: string
+  [key: string]: string
 }
-
-

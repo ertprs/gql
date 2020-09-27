@@ -8,7 +8,7 @@ const config = {
   domain: process.env.DOMAIN || null,
   port: process.env.PORT || 4000,
   version: packageJson.version,
-  name: packageJson.name
+  name: packageJson.name,
 }
 
 console.warn('config', JSON.stringify(config, null, 2))

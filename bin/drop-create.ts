@@ -1,4 +1,3 @@
-
 import { sync } from 'cross-spawn'
 import credentials from '../src/config'
 import { DataSource } from './data-source'

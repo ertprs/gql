@@ -14,18 +14,18 @@ export class FinalizadoraService {
   async save(finalizadoraInput: FinalizadoraInput): Promise<Finalizadora> {
     return this.prisma.finalizadora.upsert({
       create: {
-        ...finalizadoraInput
+        ...finalizadoraInput,
       },
       update: {
-        ...finalizadoraInput
+        ...finalizadoraInput,
       },
       where: {
-        id: finalizadoraInput.id || ''
-      }
+        id: finalizadoraInput.id || '',
+      },
     })
   }
 }
 
 export default {
-  FinalizadoraService
+  FinalizadoraService,
 }

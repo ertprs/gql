@@ -1,4 +1,4 @@
-import { AtendimentoInput } from './../model';
+import { AtendimentoInput } from './../model'
 import { Status, Atendimento, PrismaClient } from '@prisma/client'
 import { Pagination, ItemInput, PagamentoInput } from '../model'
 
@@ -7,14 +7,14 @@ const ALL_FIELDS = {
   enderecoEntrega: true,
   pagamentos: {
     include: {
-      finalizadora: true
-    }
+      finalizadora: true,
+    },
   },
   itens: {
     include: {
-      produto: true
-    }
-  }
+      produto: true,
+    },
+  },
 }
 
 export class AtendimentoService {
@@ -27,20 +27,20 @@ export class AtendimentoService {
   async list(pagination: Pagination): Promise<Atendimento[]> {
     return this.prisma.atendimento.findMany({
       include: ALL_FIELDS,
-      ...pagination
+      ...pagination,
     })
   }
 
   async find(id: string): Promise<Atendimento> {
-    if ((typeof id !== 'string') || id === '') {
+    if (typeof id !== 'string' || id === '') {
       throw new Error('invalid id: ' + id)
     }
 
     const atendimento = await this.prisma.atendimento.findOne({
       include: ALL_FIELDS,
       where: {
-        id: id
-      }
+        id: id,
+      },
     })
 
     if (!atendimento) {
@@ -50,22 +50,28 @@ export class AtendimentoService {
     return atendimento
   }
 
-  async alterarStatus({ idAtendimento, status }: { idAtendimento: string, status: Status }): Promise<Atendimento> {
+  async alterarStatus({ idAtendimento, status }: { idAtendimento: string; status: Status }): Promise<Atendimento> {
     return this.prisma.atendimento.update({
       data: {
-        status: status
+        status: status,
       },
       where: {
-        id: idAtendimento
-      }
+        id: idAtendimento,
+      },
     })
   }
 
-  async lancarItem({ idAtendimento, itemInput }: { idAtendimento: string, itemInput: ItemInput }): Promise<Atendimento> {
+  async lancarItem({
+    idAtendimento,
+    itemInput,
+  }: {
+    idAtendimento: string
+    itemInput: ItemInput
+  }): Promise<Atendimento> {
     const produto = await this.prisma.produto.findOne({
       where: {
-        id: itemInput.idProduto
-      }
+        id: itemInput.idProduto,
+      },
     })
 
     if (!produto) {
@@ -74,8 +80,8 @@ export class AtendimentoService {
 
     const atendimento = await this.prisma.atendimento.findOne({
       where: {
-        id: idAtendimento
-      }
+        id: idAtendimento,
+      },
     })
 
     if (!atendimento) {
@@ -89,14 +95,14 @@ export class AtendimentoService {
     if (itemInput.id) {
       const item = await this.prisma.item.findOne({
         where: {
-          id: itemInput.id
+          id: itemInput.id,
         },
         include: {
-          atendimento: true
-        }
+          atendimento: true,
+        },
       })
 
-      if (item && (item.atendimento.id !== idAtendimento)) {
+      if (item && item.atendimento.id !== idAtendimento) {
         throw new Error('Item [Id ' + itemInput.id + '] não pertence ao atendimento [Id ' + idAtendimento + ']')
       }
     }
@@ -107,7 +113,7 @@ export class AtendimentoService {
       cancelado: itemInput.cancelado || false,
       quantidade: itemInput.quantidade,
       precoUnitario: produto.preco,
-      valor: itemInput.quantidade * produto.preco
+      valor: itemInput.quantidade * produto.preco,
     }
 
     await this.prisma.item.upsert({
@@ -115,47 +121,48 @@ export class AtendimentoService {
         ...item,
         produto: {
           connect: {
-            id: produto.id
-          }
+            id: produto.id,
+          },
         },
         atendimento: {
           connect: {
-            id: idAtendimento
-          }
-        }
+            id: idAtendimento,
+          },
+        },
       },
       update: {
         ...item,
         produto: {
           connect: {
-            id: produto.id
-          }
+            id: produto.id,
+          },
         },
         atendimento: {
           connect: {
-            id: idAtendimento
-          }
-        }
+            id: idAtendimento,
+          },
+        },
       },
       where: {
-        id: item.id || ''
-      }
+        id: item.id || '',
+      },
     })
 
     const atendimentoComItens = await this.prisma.atendimento.findOne({
       where: {
-        id: idAtendimento
+        id: idAtendimento,
       },
       include: {
-        itens: true
-      }
+        itens: true,
+      },
     })
 
     // todo validar se o item veio de outro atendimento
 
     const itens = atendimentoComItens.itens
 
-    const valorPedido = itens.filter(item => !item.cancelado)
+    const valorPedido = itens
+      .filter(item => !item.cancelado)
       .map(item => item.valor)
       .reduce((soma, valorAtual) => {
         return (soma += valorAtual)
@@ -163,33 +170,32 @@ export class AtendimentoService {
 
     const atendimentoAtualizado = await this.prisma.atendimento.update({
       where: {
-        id: idAtendimento
+        id: idAtendimento,
       },
       data: {
         valorTotal: valorPedido + atendimentoComItens.valorEntrega,
-        valorPedido: valorPedido
+        valorPedido: valorPedido,
       },
       include: {
         cliente: true,
         enderecoEntrega: true,
         pagamentos: {
           include: {
-            finalizadora: true
-          }
+            finalizadora: true,
+          },
         },
         itens: {
           include: {
-            produto: true
-          }
-        }
-      }
+            produto: true,
+          },
+        },
+      },
     })
 
     return atendimentoAtualizado
   }
 
   async abrirAtendimento(atendimentoInput: AtendimentoInput): Promise<Atendimento> {
-
     const idCliente = atendimentoInput.idCliente || null
     delete atendimentoInput.idCliente
 
@@ -200,63 +206,64 @@ export class AtendimentoService {
 
     atendimento.dataAbertura = atendimento.dataAbertura || new Date()
 
-    if (idCliente && enderecoEntrega) { // cliente  e endereco informado ?
+    if (idCliente && enderecoEntrega) {
+      // cliente  e endereco informado ?
       const enderecoEntregaInserido = await this.prisma.endereco.upsert({
         create: {
-          ...enderecoEntrega
+          ...enderecoEntrega,
         },
         update: {
-          ...enderecoEntrega
+          ...enderecoEntrega,
         },
         where: {
-          id: enderecoEntrega.id || ''
+          id: enderecoEntrega.id || '',
         },
         select: {
-          id: true
-        }
-
+          id: true,
+        },
       })
 
       const createOrUpdate = {
         ...atendimento,
         cliente: {
           connect: {
-            id: idCliente
-          }
+            id: idCliente,
+          },
         },
         enderecoEntrega: {
           connect: {
-            id: enderecoEntregaInserido.id
-          }
-        }
+            id: enderecoEntregaInserido.id,
+          },
+        },
       }
 
       return this.prisma.atendimento.upsert({
         create: {
           ...createOrUpdate,
-          valorEntrega: 10 * Math.random()
+          valorEntrega: 10 * Math.random(),
         },
         update: createOrUpdate,
         where: {
-          id: atendimentoInput.id || ''
+          id: atendimentoInput.id || '',
         },
         include: {
           cliente: true,
-          enderecoEntrega: true
-        }
+          enderecoEntrega: true,
+        },
       })
-    } else if (idCliente) { // somente cliente
+    } else if (idCliente) {
+      // somente cliente
       const cliente = await this.prisma.cliente.findOne({
         where: {
-          id: idCliente
+          id: idCliente,
         },
         select: {
           endereco: {
             select: {
-              id: true
-            }
-          }
-        }
+              id: true,
+            },
+          },
+        },
       })
 
       if (!cliente) {
@@ -267,69 +274,69 @@ export class AtendimentoService {
         ...atendimento,
         cliente: {
           connect: {
-            id: idCliente
-          }
+            id: idCliente,
+          },
         },
         enderecoEntrega: {
           connect: {
-            id: cliente.endereco.id
-          }
-        }
+            id: cliente.endereco.id,
+          },
+        },
       }
 
       return this.prisma.atendimento.upsert({
         create: {
           ...createOrUpdate,
-          valorEntrega: parseFloat((10 * Math.random()).toFixed(2))
+          valorEntrega: parseFloat((10 * Math.random()).toFixed(2)),
         },
         update: createOrUpdate,
         where: {
-          id: atendimentoInput.id || ''
+          id: atendimentoInput.id || '',
         },
         include: {
           cliente: true,
-          enderecoEntrega: true
-        }
+          enderecoEntrega: true,
+        },
       })
-    } else if (enderecoEntrega) { // somente endereco
+    } else if (enderecoEntrega) {
+      // somente endereco
       const enderecoEntregaInserido = await this.prisma.endereco.upsert({
         create: {
-          ...enderecoEntrega
+          ...enderecoEntrega,
         },
         update: {
-          ...enderecoEntrega
+          ...enderecoEntrega,
         },
         where: {
-          id: enderecoEntrega.id || ''
+          id: enderecoEntrega.id || '',
         },
         select: {
-          id: true
-        }
-
+          id: true,
+        },
       })
 
       const createOrUpdate = {
         ...atendimento,
         enderecoEntrega: {
           connect: {
-            id: enderecoEntregaInserido.id
-          }
-        }
+            id: enderecoEntregaInserido.id,
+          },
+        },
       }
 
       return this.prisma.atendimento.upsert({
         create: {
           ...createOrUpdate,
-          valorEntrega: parseFloat((10 * Math.random()).toFixed(2))
+          valorEntrega: parseFloat((10 * Math.random()).toFixed(2)),
         },
         update: createOrUpdate,
         where: {
-          id: atendimentoInput.id || ''
+          id: atendimentoInput.id || '',
         },
         include: {
           cliente: true,
-          enderecoEntrega: true
-        }
+          enderecoEntrega: true,
+        },
       })
     } else {
       return this.prisma.atendimento.upsert({
@@ -337,39 +344,45 @@ export class AtendimentoService {
           ...atendimento,
           valorEntrega: parseFloat((10 * Math.random()).toFixed(2)),
           enderecoEntrega: {
-            connect:{
-              id: null
-            }
-          }
+            connect: {
+              id: null,
+            },
+          },
         },
         update: {
           ...atendimento,
           enderecoEntrega: {
-            connect:{
-              id: null
-            }
-          }
+            connect: {
+              id: null,
+            },
+          },
         },
         where: {
-          id: atendimentoInput.id || ''
+          id: atendimentoInput.id || '',
         },
         include: {
           cliente: true,
-          enderecoEntrega: true
-        }
+          enderecoEntrega: true,
+        },
       })
     }
   }
 
-  async lancarPagamento({ idAtendimento, pagamentoInput }: { idAtendimento: string, pagamentoInput: PagamentoInput }): Promise<Atendimento> {
+  async lancarPagamento({
+    idAtendimento,
+    pagamentoInput,
+  }: {
+    idAtendimento: string
+    pagamentoInput: PagamentoInput
+  }): Promise<Atendimento> {
     const idFinalizadora = pagamentoInput.idFinalizadora
     delete pagamentoInput.idFinalizadora
     pagamentoInput.troco = pagamentoInput.troco || 0
 
     const atendimento = await this.prisma.atendimento.findOne({
       where: {
-        id: idAtendimento
-      }
+        id: idAtendimento,
+      },
     })
 
     if (!atendimento) {
@@ -378,11 +391,11 @@ export class AtendimentoService {
 
     const finalizadora = await this.prisma.finalizadora.findOne({
       where: {
-        id: idFinalizadora
+        id: idFinalizadora,
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     })
 
     if (!finalizadora) {
@@ -392,15 +405,17 @@ export class AtendimentoService {
     if (pagamentoInput.id) {
       const pagamento = await this.prisma.pagamento.findOne({
         where: {
-          id: pagamentoInput.id
+          id: pagamentoInput.id,
         },
         include: {
-          atendimento: true
-        }
+          atendimento: true,
+        },
       })
 
-      if (pagamento && (pagamento.atendimento.id !== idAtendimento)) {
-        throw new Error('Pagamento [Id ' + pagamentoInput.id + '] não pertence ao atendimento [Id ' + idAtendimento + ']')
+      if (pagamento && pagamento.atendimento.id !== idAtendimento) {
+        throw new Error(
+          'Pagamento [Id ' + pagamentoInput.id + '] não pertence ao atendimento [Id ' + idAtendimento + ']',
+        )
       }
     }
 
@@ -416,40 +431,40 @@ export class AtendimentoService {
         ...pagamentoInput,
         finalizadora: {
           connect: {
-            id: idFinalizadora
-          }
+            id: idFinalizadora,
+          },
         },
         atendimento: {
           connect: {
-            id: idAtendimento
-          }
-        }
+            id: idAtendimento,
+          },
+        },
       },
       update: {
         ...pagamentoInput,
         finalizadora: {
           connect: {
-            id: idFinalizadora
-          }
+            id: idFinalizadora,
+          },
         },
         atendimento: {
           connect: {
-            id: idAtendimento
-          }
-        }
+            id: idAtendimento,
+          },
+        },
       },
       where: {
-        id: pagamentoInput.id || ''
-      }
+        id: pagamentoInput.id || '',
+      },
     })
 
     const atendimentoComPagamentos = await this.prisma.atendimento.findOne({
       where: {
-        id: idAtendimento
+        id: idAtendimento,
       },
       include: {
-        pagamentos: true
-      }
+        pagamentos: true,
+      },
     })
 
     const valorPago = atendimentoComPagamentos.pagamentos
@@ -460,11 +475,11 @@ export class AtendimentoService {
       }, 0)
 
     const data: {
-      valorPago: number,
+      valorPago: number
       status: Status
     } = {
       valorPago: valorPago,
-      status: Status.ABERTO
+      status: Status.ABERTO,
     }
 
     if (valorPago === atendimentoComPagamentos.valorTotal) {
@@ -475,7 +490,7 @@ export class AtendimentoService {
 
     return this.prisma.atendimento.update({
       where: {
-        id: idAtendimento
+        id: idAtendimento,
       },
       data: data,
       include: {
@@ -483,26 +498,26 @@ export class AtendimentoService {
         enderecoEntrega: true,
         pagamentos: {
           include: {
-            finalizadora: true
-          }
+            finalizadora: true,
+          },
         },
         itens: {
           include: {
-            produto: true
-          }
-        }
-      }
+            produto: true,
+          },
+        },
+      },
     })
   }
 
   async arquivar(idAtendimento: string): Promise<Atendimento> {
     return this.prisma.atendimento.update({
       where: {
-        id: idAtendimento
+        id: idAtendimento,
       },
       data: {
-        arquivado: true
-      }
+        arquivado: true,
+      },
     })
   }
 
@@ -521,7 +536,7 @@ export class AtendimentoService {
         id: atendimento.id,
         descricao: 'valor total do atendimento incorreto',
         valorEsperado: valorTotal,
-        valorObtido: atendimento.valorTotal
+        valorObtido: atendimento.valorTotal,
       })
     }
 
@@ -531,16 +546,16 @@ export class AtendimentoService {
         id: atendimento.id,
         descricao: 'valor pago do atendimento incorreto',
         valorEsperado: valorTotal,
-        valorObtido: atendimento.valorPago
+        valorObtido: atendimento.valorPago,
       })
     }
 
     const itens = await this.prisma.item.findMany({
       where: {
         atendimento: {
-          id: atendimento.id
-        }
-      }
+          id: atendimento.id,
+        },
+      },
     })
 
     const somaValorItem = itens
@@ -553,11 +568,12 @@ export class AtendimentoService {
             id: item.id,
             descricao: 'valor do item incorreto',
             valorEsperado: multiply,
-            valorObtido: item.valor
+            valorObtido: item.valor,
           })
         }
         return multiply
-      }).reduce((soma, atual) => {
+      })
+      .reduce((soma, atual) => {
         return (soma += atual)
       }, 0)
 
@@ -567,16 +583,16 @@ export class AtendimentoService {
         id: atendimento.id,
         descricao: 'valor do atendimento difere do valor do item',
         valorEsperado: somaValorItem,
-        valorObtido: atendimento.valorPedido
+        valorObtido: atendimento.valorPedido,
       })
     }
 
     const pagamentos = await this.prisma.pagamento.findMany({
       where: {
         atendimento: {
-          id: atendimento.id
-        }
-      }
+          id: atendimento.id,
+        },
+      },
     })
 
     const somaValorPagamento = pagamentos
@@ -585,7 +601,8 @@ export class AtendimentoService {
         console.log(pagamento)
         const multiply = pagamento.valor - pagamento.troco
         return multiply
-      }).reduce((soma, atual) => {
+      })
+      .reduce((soma, atual) => {
         return (soma += atual)
       }, 0)
 
@@ -599,7 +616,7 @@ export class AtendimentoService {
         id: atendimento.id,
         descricao: 'valor do atendimento difere do valor do pagamento',
         valorEsperado: somaValorPagamento,
-        valorObtido: atendimento.valorPago
+        valorObtido: atendimento.valorPago,
       })
     }
 
@@ -611,8 +628,8 @@ export class AtendimentoService {
   async auditarEArquivar(idAtendimento: string): Promise<Atendimento> {
     const atendimento = await this.prisma.atendimento.findOne({
       where: {
-        id: idAtendimento
-      }
+        id: idAtendimento,
+      },
     })
 
     if (atendimento.arquivado) {

@@ -7,9 +7,8 @@ const WARN = yellow('[WARN]')
 const ERROR = red('[ERROR]')
 const SUCCESS = green('[SUCCESS]')
 
-
 async function connect(): Promise<Connection> {
-  console.log(INFO,'trying to connect to', config.databaseUrl)
+  console.log(INFO, 'trying to connect to', config.databaseUrl)
   return new Promise((resolve, reject) => {
     try {
       const database = mysql.createConnection(config.databaseUrl)
@@ -27,7 +26,7 @@ async function connect(): Promise<Connection> {
 }
 
 async function sleep(milliseconds: number): Promise<void> {
-  console.log(INFO,'awaiting', milliseconds, 'milliseconds')
+  console.log(INFO, 'awaiting', milliseconds, 'milliseconds')
   return new Promise(resolve => {
     setTimeout(resolve, milliseconds)
   })
@@ -40,15 +39,15 @@ async function run(): Promise<void> {
     await connect()
       .then(connection => {
         connection.end(() => null)
-        console.log(SUCCESS,'connected successfully')
+        console.log(SUCCESS, 'connected successfully')
         process.exit(0)
       })
       .catch(async e => {
         attempts++
 
-        console.log(WARN,'attempts', attempts, 'connect failed:', e.message)
+        console.log(WARN, 'attempts', attempts, 'connect failed:', e.message)
         if (attempts >= 15) {
-          console.log(ERROR,'Tried to connect many times exiting with error')
+          console.log(ERROR, 'Tried to connect many times exiting with error')
           process.exit(1)
         }
 

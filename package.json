@@ -22,8 +22,9 @@
     "seed": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx ts-node bin/seed",
     "nodemon": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx nodemon",
     "start-dev": "npm run start-db && npm run nodemon",
-    "lint": "npx eslint . --ext .js,.ts",
-    "lint-fix": "npx eslint . --ext .js,.ts --fix"
+    "lint": "npx prettier --check ./**/**.* && npx eslint . --ext .js,.ts",
+    "lint-fix": "npx prettier --write ./**/**.* && npx eslint . --ext .js,.ts --fix",
+    "commit": "npx cz"
   },
   "dependencies": {
     "@prisma/cli": "2.6.2",
@@ -33,9 +34,12 @@
     "apollo-boost": "0.4.7",
     "apollo-server": "^2.17.0",
     "async": "3.1.1",
+    "commitizen": "^4.2.1",
     "cuid": "2.1.8",
     "dotenv": "^8.2.0",
     "dotenv-cli": "3.2.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "graphql": "^15.3.0",
     "npm": "6.14.6",
     "postinstall": "0.7.0",
@@ -44,6 +48,8 @@
     "typescript": "3.5.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/jest": "26.0.13",
     "@types/node": "10.14.9",
@@ -52,33 +58,32 @@
     "@typescript-eslint/parser": "2.19.2",
     "apollo-server-testing": "^2.17.0",
     "chalk": "^4.1.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "6.8.0",
-    "eslint-config-prettier": "^6.10.0",
     "eslint-config-standard": "14.1.0",
     "eslint-plugin-import": "2.20.1",
     "eslint-plugin-jest": "23.7.0",
     "eslint-plugin-node": "11.0.0",
-    "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.1",
+    "husky": "^4.3.0",
     "jest": "25.1.0",
     "lerna": "^3.22.1",
     "mysql": "^2.18.1",
     "nodemon": "2.0.2",
     "prettier": "^1.19.1",
-    "prettier-eslint": "^11.0.0",
     "rimraf": "3.0.2",
     "sucrase": "3.12.1",
     "supertest": "^4.0.2",
     "ts-jest": "25.2.0",
     "tslint": "6.0.0"
   },
-  "prettier": {
-    "singleQuote": true,
-    "semi": false,
-    "trailingComma": "all"
-  },
   "engines": {
     "node": ">=13.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

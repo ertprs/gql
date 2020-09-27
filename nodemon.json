@@ -1,15 +1,9 @@
 {
-    "watch": [
-      "./"
-    ],
-    "ext": "*",
-    "execMap": {
-        "ts": "ts-node ."
-    },
-    "delay":  "1000",
-    "verbose": true
+  "watch": ["./"],
+  "ext": "*",
+  "execMap": {
+    "ts": "ts-node ."
+  },
+  "delay": "1000",
+  "verbose": true
 }
-
-
-
-

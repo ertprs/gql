@@ -11,16 +11,17 @@ describe('integration tests', () => {
       expect.assertions(1)
 
       const response = await query({
-        query: queries.ATENDIMENTOS
+        query: queries.ATENDIMENTOS,
       })
 
-      expect(response).toStrictEqual(expect.objectContaining({
-        data: {
-          atendimentos: []
-        },
-        errors: undefined
-      }))
-
+      expect(response).toStrictEqual(
+        expect.objectContaining({
+          data: {
+            atendimentos: [],
+          },
+          errors: undefined,
+        }),
+      )
     })
   })
 })

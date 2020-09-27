@@ -15,14 +15,14 @@ export class ProdutoService {
   async save(produtoInput: ProdutoInput): Promise<Produto> {
     return this.prisma.produto.upsert({
       create: {
-        ...produtoInput
+        ...produtoInput,
       },
       update: {
-        ...produtoInput
+        ...produtoInput,
       },
       where: {
-        id: produtoInput.id || ''
-      }
+        id: produtoInput.id || '',
+      },
     })
   }
 }
