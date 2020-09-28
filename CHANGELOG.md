@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.14](https://github.com/LeoFalco/gql/compare/v1.0.13...v1.0.14) (2020-09-28)
+
+
+### Bug Fixes
+
+* **deps:** update apollo graphql packages ([5e81d62](https://github.com/LeoFalco/gql/commit/5e81d6206cb80fe398c4d00f6f86852eef472a43))
+
+
+
+
+
+## [1.0.14](https://github.com/LeoFalco/gql/compare/v1.0.13...v1.0.14) (2020-09-28)
+
+
+### Bug Fixes
+
+* **deps:** update apollo graphql packages ([5e81d62](https://github.com/LeoFalco/gql/commit/5e81d6206cb80fe398c4d00f6f86852eef472a43))
+
+
+
+
+
 ## [1.0.13](https://github.com/LeoFalco/gql/compare/v1.0.12...v1.0.13) (2020-09-28)
 
 **Note:** Version bump only for package gql
