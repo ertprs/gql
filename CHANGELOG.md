@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.30](https://github.com/LeoFalco/gql/compare/v1.0.29...v1.0.30) (2020-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ts-node to v9 ([b8fc8a2](https://github.com/LeoFalco/gql/commit/b8fc8a2485735aa3b481e35010183507e15572c8))
+
+
+
+
+
+## [1.0.30](https://github.com/LeoFalco/gql/compare/v1.0.29...v1.0.30) (2020-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ts-node to v9 ([b8fc8a2](https://github.com/LeoFalco/gql/commit/b8fc8a2485735aa3b481e35010183507e15572c8))
+
+
+
+
+
 ## [1.0.29](https://github.com/LeoFalco/gql/compare/v1.0.28...v1.0.29) (2020-09-29)
 
 
