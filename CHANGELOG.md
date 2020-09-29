@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.31](https://github.com/LeoFalco/gql/compare/v1.0.30...v1.0.31) (2020-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv-cli to v4 ([fa5b9d8](https://github.com/LeoFalco/gql/commit/fa5b9d84731cce5e200a6f52295b2382bef7c74f))
+
+
+
+
+
+## [1.0.31](https://github.com/LeoFalco/gql/compare/v1.0.30...v1.0.31) (2020-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv-cli to v4 ([fa5b9d8](https://github.com/LeoFalco/gql/commit/fa5b9d84731cce5e200a6f52295b2382bef7c74f))
+
+
+
+
+
 ## [1.0.30](https://github.com/LeoFalco/gql/compare/v1.0.29...v1.0.30) (2020-09-29)
 
 
