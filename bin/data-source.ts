@@ -5,7 +5,7 @@ function parse(url: string): Environment {
   const matches = url.match(pattern)
   const params: Environment = {}
   if (matches[5] !== undefined) {
-    matches[5].split('&').map(function(x) {
+    matches[5].split('&').forEach(function (x) {
       const a = x.split('=')
       params[a[0]] = a[1]
     })

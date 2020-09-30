@@ -130,19 +130,13 @@ input PagamentoInput {
 }
 
 type Mutation {
-  inserirCliente(
-    clienteInput: ClienteInput!
-    enderecoInput: EnderecoInput
-  ): Cliente!
+  inserirCliente(clienteInput: ClienteInput!, enderecoInput: EnderecoInput): Cliente!
   inserirProduto(produtoInput: ProdutoInput): Produto!
   inserirFinalizadora(finalizadoraInput: FinalizadoraInput): Finalizadora!
 
   abrirAtendimento(atendimentoInput: AtendimentoInput!): Atendimento!
   alterarStatus(idAtendimento: String!, status: Status!): Atendimento!
   lancarItem(idAtendimento: String!, itemInput: ItemInput!): Atendimento!
-  lancarPagamento(
-    idAtendimento: String!
-    pagamentoInput: PagamentoInput!
-  ): Atendimento!
+  lancarPagamento(idAtendimento: String!, pagamentoInput: PagamentoInput!): Atendimento!
   auditarEArquivar(idAtendimento: String!): Atendimento!
 }
