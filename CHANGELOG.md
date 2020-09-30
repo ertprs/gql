@@ -7,17 +7,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package gql
 
-
-
-
-
 ## [1.0.33](https://github.com/LeoFalco/gql/compare/v1.0.32...v1.0.33) (2020-09-30)
 
 **Note:** Version bump only for package gql
-
-
-
-
 
 ## [1.0.32](https://github.com/LeoFalco/gql/compare/v1.0.31...v1.0.32) (2020-09-30)
 

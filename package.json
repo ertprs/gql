@@ -5,6 +5,9 @@
   "license": "MIT",
   "private": true,
   "repository": "https://github.com/LeoFalco/gql",
+  "workspaces": [
+    "./"
+  ],
   "scripts": {
     "clean": "npx lerna clean -y",
     "start-db": "docker-compose up & npm run health-check",
