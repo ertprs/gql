@@ -1,5 +1,9 @@
 import { Connection, createConnection } from 'promise-mysql'
 
+interface Environment {
+  [key: string]: string
+}
+
 function parse(url: string): Environment {
   const pattern = /^(?:([^:\\/?#\s]+):\/{2})?(?:([^@\\/?#\s]+)@)?([^\\/?#\s]+)?(?:\/([^?#\s]*))?(?:[?]([^#\s]+))?\S*$/
   const matches = url.match(pattern)
@@ -93,8 +97,4 @@ export class DataSource {
 
     return this.con.query(createTableMigration)
   }
-}
-
-interface Environment {
-  [key: string]: string
 }

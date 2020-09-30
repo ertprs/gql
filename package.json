@@ -22,8 +22,8 @@
     "seed": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx ts-node bin/seed",
     "nodemon": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx nodemon",
     "start-dev": "npm run start-db && npm run nodemon",
-    "lint": "npx prettier --check ./**/**.* && npx eslint . --ext .js,.ts",
-    "lint-fix": "npx prettier --write ./**/**.* && npx eslint . --ext .js,.ts --fix",
+    "lint": "npx prettier --check . && npx eslint . --ext .js,.ts",
+    "lint-fix": "npx prettier --write . && npx eslint . --ext .js,.ts --fix",
     "commit": "npx cz"
   },
   "dependencies": {
@@ -55,8 +55,8 @@
     "@types/jest": "26.0.14",
     "@types/node": "10.14.9",
     "@types/node-fetch": "2.5.7",
-    "@typescript-eslint/eslint-plugin": "2.19.2",
-    "@typescript-eslint/parser": "2.19.2",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0",
     "apollo-server-testing": "2.18.1",
     "chalk": "4.1.0",
     "cz-conventional-changelog": "3.3.0",
