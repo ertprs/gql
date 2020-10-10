@@ -1,5 +1,4 @@
-db
+db/data
 node_modules
-*.prisma
-*.lock
+prisma
 CHANGELOG.md

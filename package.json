@@ -14,7 +14,7 @@
     "pretest": "npm run start-db",
     "health-check": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx ts-node bin/health-check.ts",
     "migrate": "npm run migrate-save && npm run migrate-up",
-    "migrate-save": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx prisma migrate save --experimental --name=$(date '+%Y-%m-%d_%H-%M-%S-%s')",
+    "migrate-save": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx prisma migrate save --experimental --name=''",
     "migrate-up": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx prisma migrate up --experimental --verbose",
     "test": "npm run migrate && npm run jest",
     "jest": "npx dotenv -e .env.$(echo $ENVIRONMENT) -- npx jest --detectOpenHandles --forceExit",
