@@ -1,6 +1,6 @@
 {
   "name": "gql",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "main": "src/index.ts",
   "license": "MIT",
   "private": true,
