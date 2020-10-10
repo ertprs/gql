@@ -96,10 +96,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: gql-leo
           heroku_email: 'leonardo.falco@outlook.com'
-
-      - name: Check the deployed service URL
-        uses: jtalk/url-health-check-action@v1.2
-        with:
-          url: https://gql-leo.herokuapp.com/
-          max-attempts: 20
-          retry-delay: 10s
