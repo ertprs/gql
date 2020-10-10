@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.35](https://github.com/LeoFalco/gql/compare/v1.0.34...v1.0.35) (2020-10-10)
+
+
+### Bug Fixes
+
+* migrations ([898a0d5](https://github.com/LeoFalco/gql/commit/898a0d5c380a50ea5ce8f695b16fbe87bcfe1576))
+
+
+
+
+
+## [1.0.35](https://github.com/LeoFalco/gql/compare/v1.0.34...v1.0.35) (2020-10-10)
+
+
+### Bug Fixes
+
+* migrations ([898a0d5](https://github.com/LeoFalco/gql/commit/898a0d5c380a50ea5ce8f695b16fbe87bcfe1576))
+
+
+
+
+
 ## [1.0.34](https://github.com/LeoFalco/gql/compare/v1.0.33...v1.0.34) (2020-09-30)
 
 **Note:** Version bump only for package gql
