@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.36](https://github.com/LeoFalco/gql/compare/v1.0.35...v1.0.36) (2020-10-10)
+
+
+### Bug Fixes
+
+* remove health-check ([c24ded1](https://github.com/LeoFalco/gql/commit/c24ded1473b91faa236737e6941db17b6fe7ed8f))
+
+
+
+
+
+## [1.0.36](https://github.com/LeoFalco/gql/compare/v1.0.35...v1.0.36) (2020-10-10)
+
+
+### Bug Fixes
+
+* remove health-check ([c24ded1](https://github.com/LeoFalco/gql/commit/c24ded1473b91faa236737e6941db17b6fe7ed8f))
+
+
+
+
+
 ## [1.0.35](https://github.com/LeoFalco/gql/compare/v1.0.34...v1.0.35) (2020-10-10)
 
 
