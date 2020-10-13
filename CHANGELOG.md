@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.47](https://github.com/LeoFalco/gql/compare/v1.0.46...v1.0.47) (2020-10-13)
+
+
+### Bug Fixes
+
+* **deps:** update prisma monorepo to v2.9.0 ([b1bff26](https://github.com/LeoFalco/gql/commit/b1bff262f6dd52aafec9d23be198dde43eec676c))
+
+
+
+
+
+## [1.0.47](https://github.com/LeoFalco/gql/compare/v1.0.46...v1.0.47) (2020-10-13)
+
+
+### Bug Fixes
+
+* **deps:** update prisma monorepo to v2.9.0 ([b1bff26](https://github.com/LeoFalco/gql/commit/b1bff262f6dd52aafec9d23be198dde43eec676c))
+
+
+
+
+
 ## [1.0.46](https://github.com/LeoFalco/gql/compare/v1.0.45...v1.0.46) (2020-10-13)
 
 **Note:** Version bump only for package gql
