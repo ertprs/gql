@@ -37,7 +37,7 @@
     "apollo-boost": "0.4.9",
     "apollo-server": "2.18.2",
     "async": "3.2.0",
-    "commitizen": "4.2.1",
+    "commitizen": "4.2.2",
     "cuid": "2.1.8",
     "dotenv": "8.2.0",
     "dotenv-cli": "4.0.0",
