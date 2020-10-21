@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.57](https://github.com/LeoFalco/gql/compare/v1.0.56...v1.0.57) (2020-10-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency eslint-config-prettier to v6.14.0 ([114f3c3](https://github.com/LeoFalco/gql/commit/114f3c3a13c839bf7a281b49abcb06221f7a318a))
+
+
+
+
+
+## [1.0.57](https://github.com/LeoFalco/gql/compare/v1.0.56...v1.0.57) (2020-10-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency eslint-config-prettier to v6.14.0 ([114f3c3](https://github.com/LeoFalco/gql/commit/114f3c3a13c839bf7a281b49abcb06221f7a318a))
+
+
+
+
+
 ## [1.0.56](https://github.com/LeoFalco/gql/compare/v1.0.55...v1.0.56) (2020-10-21)
 
 
