@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.65](https://github.com/LeoFalco/gql/compare/v1.0.64...v1.0.65) (2020-10-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript to v4.0.5 ([3b1edb7](https://github.com/LeoFalco/gql/commit/3b1edb7d1845bd98218da57ceeabfc50473cfb20))
+
+
+
+
+
+## [1.0.65](https://github.com/LeoFalco/gql/compare/v1.0.64...v1.0.65) (2020-10-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript to v4.0.5 ([3b1edb7](https://github.com/LeoFalco/gql/commit/3b1edb7d1845bd98218da57ceeabfc50473cfb20))
+
+
+
+
+
 ## [1.0.64](https://github.com/LeoFalco/gql/compare/v1.0.63...v1.0.64) (2020-10-26)
 
 
