@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.66](https://github.com/LeoFalco/gql/compare/v1.0.65...v1.0.66) (2020-11-08)
+
+
+### Bug Fixes
+
+* **deps:** update apollo graphql packages to v2.19.0 ([53ef24e](https://github.com/LeoFalco/gql/commit/53ef24e069f27e7d322e012ff0437947c464cdc9))
+* **deps:** update dependency eslint-config-prettier to v6.15.0 ([969b7c4](https://github.com/LeoFalco/gql/commit/969b7c4554a5aa52de5df369e73c4af1ccd0f393))
+* **deps:** update prisma monorepo to v2.10.0 ([a95a605](https://github.com/LeoFalco/gql/commit/a95a60547fd10fee1cd34de78f9273f3a5727c0e))
+* **deps:** update prisma monorepo to v2.10.1 ([413f8fa](https://github.com/LeoFalco/gql/commit/413f8fa3ebdf63333992e35a5899534eff5b258b))
+* **deps:** update prisma monorepo to v2.10.2 ([9741c02](https://github.com/LeoFalco/gql/commit/9741c02e3986693e4ec1bad269ffd256efc5dd1e))
+* **deps:** update sentry monorepo to v5.27.2 ([b76c766](https://github.com/LeoFalco/gql/commit/b76c7669c8ded6c88544db424ce356eda6e7000f))
+* **deps:** update sentry monorepo to v5.27.3 ([eac1682](https://github.com/LeoFalco/gql/commit/eac1682fb073d294ade99c9c4fb93a6c3de136e9))
+
+
+
+
+
+## [1.0.66](https://github.com/LeoFalco/gql/compare/v1.0.65...v1.0.66) (2020-11-08)
+
+
+### Bug Fixes
+
+* **deps:** update apollo graphql packages to v2.19.0 ([53ef24e](https://github.com/LeoFalco/gql/commit/53ef24e069f27e7d322e012ff0437947c464cdc9))
+* **deps:** update dependency eslint-config-prettier to v6.15.0 ([969b7c4](https://github.com/LeoFalco/gql/commit/969b7c4554a5aa52de5df369e73c4af1ccd0f393))
+* **deps:** update prisma monorepo to v2.10.0 ([a95a605](https://github.com/LeoFalco/gql/commit/a95a60547fd10fee1cd34de78f9273f3a5727c0e))
+* **deps:** update prisma monorepo to v2.10.1 ([413f8fa](https://github.com/LeoFalco/gql/commit/413f8fa3ebdf63333992e35a5899534eff5b258b))
+* **deps:** update prisma monorepo to v2.10.2 ([9741c02](https://github.com/LeoFalco/gql/commit/9741c02e3986693e4ec1bad269ffd256efc5dd1e))
+* **deps:** update sentry monorepo to v5.27.2 ([b76c766](https://github.com/LeoFalco/gql/commit/b76c7669c8ded6c88544db424ce356eda6e7000f))
+* **deps:** update sentry monorepo to v5.27.3 ([eac1682](https://github.com/LeoFalco/gql/commit/eac1682fb073d294ade99c9c4fb93a6c3de136e9))
+
+
+
+
+
 ## [1.0.65](https://github.com/LeoFalco/gql/compare/v1.0.64...v1.0.65) (2020-10-26)
 
 
