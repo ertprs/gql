@@ -31,8 +31,8 @@
   "dependencies": {
     "@prisma/cli": "2.12.1",
     "@prisma/client": "2.12.1",
-    "@sentry/node": "5.27.6",
-    "@sentry/tracing": "5.27.6",
+    "@sentry/node": "5.28.0",
+    "@sentry/tracing": "5.28.0",
     "apollo-boost": "0.4.9",
     "apollo-server": "2.19.0",
     "async": "3.2.0",
