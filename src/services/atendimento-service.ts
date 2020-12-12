@@ -36,7 +36,7 @@ export class AtendimentoService {
       throw new Error('invalid id: ' + id)
     }
 
-    const atendimento = await this.prisma.atendimento.findOne({
+    const atendimento = await this.prisma.atendimento.findUnique({
       include: ALL_FIELDS,
       where: {
         id: id,
@@ -68,7 +68,7 @@ export class AtendimentoService {
     idAtendimento: string
     itemInput: ItemInput
   }): Promise<Atendimento> {
-    const produto = await this.prisma.produto.findOne({
+    const produto = await this.prisma.produto.findUnique({
       where: {
         id: itemInput.idProduto,
       },
@@ -78,7 +78,7 @@ export class AtendimentoService {
       throw new Error('Produto [Id ' + itemInput.idProduto + '] não encontrado')
     }
 
-    const atendimento = await this.prisma.atendimento.findOne({
+    const atendimento = await this.prisma.atendimento.findUnique({
       where: {
         id: idAtendimento,
       },
@@ -93,7 +93,7 @@ export class AtendimentoService {
     }
 
     if (itemInput.id) {
-      const item = await this.prisma.item.findOne({
+      const item = await this.prisma.item.findUnique({
         where: {
           id: itemInput.id,
         },
@@ -148,7 +148,7 @@ export class AtendimentoService {
       },
     })
 
-    const atendimentoComItens = await this.prisma.atendimento.findOne({
+    const atendimentoComItens = await this.prisma.atendimento.findUnique({
       where: {
         id: idAtendimento,
       },
@@ -253,7 +253,7 @@ export class AtendimentoService {
       })
     } else if (idCliente) {
       // somente cliente
-      const cliente = await this.prisma.cliente.findOne({
+      const cliente = await this.prisma.cliente.findUnique({
         where: {
           id: idCliente,
         },
@@ -379,7 +379,7 @@ export class AtendimentoService {
     delete pagamentoInput.idFinalizadora
     pagamentoInput.troco = pagamentoInput.troco || 0
 
-    const atendimento = await this.prisma.atendimento.findOne({
+    const atendimento = await this.prisma.atendimento.findUnique({
       where: {
         id: idAtendimento,
       },
@@ -389,7 +389,7 @@ export class AtendimentoService {
       throw new Error('Atendimento [Id ' + idAtendimento + '] não encontrado')
     }
 
-    const finalizadora = await this.prisma.finalizadora.findOne({
+    const finalizadora = await this.prisma.finalizadora.findUnique({
       where: {
         id: idFinalizadora,
       },
@@ -403,7 +403,7 @@ export class AtendimentoService {
     }
 
     if (pagamentoInput.id) {
-      const pagamento = await this.prisma.pagamento.findOne({
+      const pagamento = await this.prisma.pagamento.findUnique({
         where: {
           id: pagamentoInput.id,
         },
@@ -458,7 +458,7 @@ export class AtendimentoService {
       },
     })
 
-    const atendimentoComPagamentos = await this.prisma.atendimento.findOne({
+    const atendimentoComPagamentos = await this.prisma.atendimento.findUnique({
       where: {
         id: idAtendimento,
       },
@@ -626,7 +626,7 @@ export class AtendimentoService {
   }
 
   async auditarEArquivar(idAtendimento: string): Promise<Atendimento> {
-    const atendimento = await this.prisma.atendimento.findOne({
+    const atendimento = await this.prisma.atendimento.findUnique({
       where: {
         id: idAtendimento,
       },

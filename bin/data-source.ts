@@ -23,7 +23,7 @@ function parse(url: string): Environment {
     hostname: matches[3] !== undefined ? matches[3].split(/:(?=\d+$)/)[0] : undefined,
     port: matches[3] !== undefined ? matches[3].split(/:(?=\d+$)/)[1] : undefined,
     segments: matches[4] !== undefined ? matches[4] : undefined,
-  }
+  };
 }
 
 export class DataSource {
