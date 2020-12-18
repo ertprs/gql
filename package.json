@@ -28,8 +28,8 @@
     "commit": "npx cz"
   },
   "dependencies": {
-    "@prisma/cli": "2.13.0",
-    "@prisma/client": "2.13.0",
+    "@prisma/cli": "2.13.1",
+    "@prisma/client": "2.13.1",
     "@sentry/node": "5.29.0",
     "@sentry/tracing": "5.29.0",
     "apollo-boost": "0.4.9",
